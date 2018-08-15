@@ -124,6 +124,8 @@ initial setup of the services and dependencies of the project:
 
 
 
+.. _quickstart-customize:
+
 Customize
 ---------
 
@@ -191,6 +193,8 @@ You can now visit https://127.0.0.1:5000/ !
     the warning message. For CLI tools like ``curl``, you can ignore the SSL
     verification via the ``-k/--insecure`` option.
 
+.. _create-a-record:
+
 Create a record
 ^^^^^^^^^^^^^^^
 
@@ -224,6 +228,8 @@ simple record via ``curl``:
     "updated": "2018-05-23T13:28:19.426213+00:00"
   }
 
+.. _display-a-record:
+
 Display a record
 ^^^^^^^^^^^^^^^^
 
@@ -254,6 +260,8 @@ fetch it via the REST API:
     "revision": 0,
     "updated": "2018-05-23T13:28:19.426213+00:00"
   }
+
+.. _search-for-records:
 
 Search for records
 ^^^^^^^^^^^^^^^^^^
