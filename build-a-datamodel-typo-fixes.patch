@@ -1,0 +1,87 @@
+diff --git a/docs/datamodel/build-a-datamodel.rst b/docs/datamodel/build-a-datamodel.rst
+index b2ec0fffa..fbf65b357 100644
+--- a/docs/datamodel/build-a-datamodel.rst
++++ b/docs/datamodel/build-a-datamodel.rst
+@@ -10,7 +10,7 @@ Build a data model
+ An Invenio data model, a bit simply put, defines *a record type*. You can also
+ think of a data model as a supercharged database table.
+ 
+-In addition to store records (aka documents or rows in a database) according to
++In addition to storing records (aka documents or rows in a database) according to
+ a specific structure, a data model also deals with:
+ 
+ * Access to records via REST APIs and landing pages.
+@@ -32,9 +32,9 @@ database on top of Invenio.
+ First steps
+ -----------
+ First of all, make sure you have followed the :ref:`quickstart`, to ensure
+-you have scaffolded an initial *Invenio instance* an *a data model package*.
++you have scaffolded an initial *Invenio instance* and *a data model package*.
+ 
+-You should see a directory structure similar to the one below in the newly  scaffolded data model package:
++You should see a directory structure similar to the one below in the newly scaffolded data model package:
+ 
+ .. code-block:: shell
+ 
+@@ -59,11 +59,11 @@ Building a data model involves the following tasks:
+ 
+ - Define a JSONSchema.
+ - Define an Elasticsearch mapping.
+-- Define a Marshamllow schema.
++- Define a Marshmallow schema.
+ - Define serializers.
+ - Define loaders.
+ - Define templates.
+-- Choose a persistent identifier scheme
++- Choose a persistent identifier scheme.
+ - Configure the REST API and UI.
+ 
+ Define a JSONSchema
+@@ -110,7 +110,7 @@ An example record that validates against this schema could look like:
+         "title": "My record"
+     }
+ 
+-Note, that the ``$schema`` key points to JSONSchema that the record should be
++Note, that the ``$schema`` key points to the JSONSchema that the record should be
+ validated against.
+ 
+ **Discovery of schemas**
+@@ -138,8 +138,8 @@ group ``invenio_jsonschemas.schemas``:
+ 
+ Define an Elasticsearch mapping
+ -------------------------------
+-In order to make records searchable, the records needs to be indexed in
+-Elasticsearch. Similar to the JSONSchema that allows you to validate the
++In order to make records searchable, the records need to be indexed in
++Elasticsearch. Similarly to the JSONSchema that allows you to validate the
+ structure of the JSON, you need to define an *Elasticsearch mapping*, that
+ tells Elasticsearch how to index your document.
+ 
+@@ -191,7 +191,7 @@ In ``record-v1.0.0.json`` you should see something like:
+ The above Elasticsearch mapping, similarly to the JSONSchema, defines the
+ structure of the JSON, but also how it should be indexed.
+ 
+-For instance in above example the ``title`` field is of type ``text`` which
++For instance, in the above example the ``title`` field is of type ``text``, which
+ applies stemming when searching, whereas the ``keywords`` field is of type
+ ``keyword`` which means no stemming is applied. The mapping also allows you to
+ define e.g. that a ``lat`` and a ``lon`` field are in fact geographical
+@@ -261,14 +261,14 @@ way, you create a new JSONSchema and new mappings (e.g. ``record-v1.1.0.json``)
+     |   |           `-- record-v1.1.0.json
+ 
+ 
+-This allows you to simultaneously store old an new records - i.e. you don't
+-have take down your service for hours to migrate you millions of records from
+-one version to a new.
++This allows you to simultaneously store old and new records - i.e. you don't
++have to take down your service for hours to migrate you millions of records from
++one version to a new one.
+ 
+ Now of course, old records will be sent to the ``records-record-v1.0.0`` index
+ and new records will be sent to the ``records-record-v1.1.0`` index. However,
+ a special Elasticsearch *index alias* ``records`` is also created, that allows
+-you to search over both old an new records, thus smoothly handling data model
++you to search over both old and new records, thus smoothly handling data model
+ evolution.
+ 
+ **Discovery of mappings**
