@@ -343,7 +343,7 @@ loaders, so continue reading to see how the schema is used.
 **What's the difference: JSONSchemas, Mappings and Marshmallow?**
 
 It may seem a bit confusing that Invenio is dealing with three types of
-schemas. There's however good reasons:
+schemas. There are however good reasons:
 
 - **JSONSchema**: Deals with the internal structural validation of records
   stored in the database (much like you define the table structure in
@@ -352,6 +352,24 @@ schemas. There's however good reasons:
   Elasticsearch which has big impact on your search results.
 - **Marshmallow schema**: Deals with primarily data validation and
   transformation for both serialization and deserialization.
+
+
+.. code-block:: console
+
+                                    
+                                        Indexed with Elasticsearch
+                                                mapping      +---------------+
+                                                 +---------->| Elasticsearch |
+    POST data={field1:value1}                    |           +---------------+
+    +------+                      +--------------+
+    |Client+--------------------->+ /api/records |
+    +------+                      +--------------+
+                                    Loaded with  |
+                                    Marshmallow  |                 +----+
+                                    deserializer +---------------->+ DB |
+                                                    Stored with    +----+
+                                                    JSONSchema
+
 
 Define serializers
 ------------------
@@ -442,7 +460,7 @@ allows you to use advanced data validation rules on your REST API.
 Define templates
 ----------------
 In order to display records not only on your REST API, but also provide
-search interface and landing pages for your record you need to provide
+search interface and landing pages for your records you need to provide
 templates that render your records.
 
 You will need two different types of templates:
@@ -503,7 +521,7 @@ Let's start by configuring the landing page:
         },
     }
 
-Here an explanation of the different keys:
+Here's an explanation of the different keys:
 
 * ``pid_type``: Defines the persistent identifier type which the resolver
   should use to lookup records. Invenio provides an internal persistent
@@ -542,8 +560,8 @@ identifier from your search results:
 
 **Search**
 
-Next, you define the Elasticsearch index to use for searchers. The index is
-defined as ``records`` because this is index alias which was created for our
+Next, you define the Elasticsearch index to use for searches. The index is
+defined as ``records`` because this is the index alias which was created for our
 mappings ``records/record-v1.0.0.json``.
 
 .. code-block:: python
